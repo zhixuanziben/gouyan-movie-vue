@@ -8,8 +8,8 @@
         <button type="submit" @click="serch()"></button>
       </div>
     </header>
-    <div class="nav-bar">
-      <router-link to="/inTheaters" class="nav">正在上映</router-link>
+    <div class="nav-bar" v-if="headerShow">
+      <router-link to="/inTheaters" class="nav">正在热映</router-link>
       <router-link to="/comingSoon" class="nav">即将上映</router-link>
       <router-link to="/top250" class="nav">TOP250</router-link>
     </div>
@@ -22,7 +22,8 @@ export default {
   name: 'app',
   data () {
     return {
-      query: ''
+      query: '',
+      headerShow: true
     }
   },
   methods: {
@@ -34,7 +35,7 @@ export default {
       this.query = ''
     },
     ceshi: function () {
-      this.$http.jsonp('https://api-m.mtime.cn/Movie/Video.api?pageIndex=1&movieId=217896')
+      this.$http.jsonp('http://api.douban.com/v2/movie/search?q=张艺谋')
         .then(function (response) {
           console.log(JSON.stringify(response))
         })
@@ -129,11 +130,5 @@ header {
 }
 .nav:hover {
   background-color: #1D8CE0;
-}
-.show {
-  width: 90%;
-  margin: 0 auto;
-  border-left: 2px solid #8492A6;
-  border-right: 2px solid #8492A6;
 }
 </style>

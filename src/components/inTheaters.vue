@@ -3,10 +3,16 @@
     <spinner v-if='guodu'></spinner>
     <div class="in-theaters-area">
       <div class="in-movies-wrap" >
-        <div class="in-movies-show" v-for="(item, index) in in_theaters_data_body_subjects" @click="showMoreMsg">
-          <p><router-link :to="'movie/'+ item.id"><img :src="item.images.small" :alt="item.alt"></router-link></p>
-          <p>{{ item.title }}</p>
-          <p>{{ item.rating.average }}</p>
+        <div class="in-movies-show" v-for="(item, index) in in_theaters_data_body_subjects" @click="showMoreMsg(item.id)">
+          <div class="in-movies-show-child">
+            <div class="posters"><img :src="item.images.small" :alt="item.alt"></div>
+            <div class="movieMsg">
+              <h2>{{ item.title }}</h2>
+              <p>{{ item.rating.average }}分</p>
+              <p>导演:{{ item.directors[0].name}}</p>
+              <p>主演:{{ item.casts[0].name}}, {{ item.casts[1].name}}</p>
+            </div>
+          </div>
         </div>
       </div>      
     </div>
@@ -41,7 +47,9 @@ export default {
         })
   },
   methods: {
-    showMoreMsg: function () {
+    showMoreMsg: function (str) {
+      const path = '/movie/' + str
+      this.$router.push({path: path})
     }
   }
 }
@@ -64,17 +72,30 @@ export default {
     font-size: 0;
   }
   .in-movies-show {
-    width: 80%;
-    margin: 0 auto;
     background-color: white;
-    text-align: center;
+    padding: 10px 20px;
+    box-sizing: border-box;
     cursor: pointer;
     font-size: 0;
   }
-  .in-movies-show:hover {
-    background-color: #58B7FF;
+  .in-movies-show-child {
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ece9e9;
   }
   .in-movies-show p {
     font-size: 14px;
+    color: #837979;
+  }
+  .movieMsg {
+    flex: 1;
+    padding-left: 20px;
+    vertical-align: top;
+  }
+  .movieMsg h2 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
   }
 </style>
