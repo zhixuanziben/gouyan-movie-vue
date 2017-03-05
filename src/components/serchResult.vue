@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div class="result">
     <spinner v-if='guodu'></spinner>
     <h1 v-if='!guodu'>'{{name}}'的搜索结果, 共{{search_result.total}}条信息</h1>
-    <div v-if='!guodu' class="in-theaters-area">
-      <div class="movies-wrap" >
-        <div class="movies-show" v-for="(item, index) in search_result.subjects" @click="showMoreMsg">
+    <div v-if='!guodu' class="res-theaters-area">
+      <div class="res-movies-wrap" >
+        <div class="res-movies-show" v-for="(item, index) in search_result.subjects" @click="showMoreMsg">
           <p><router-link :to="'movie/'+ item.id"><img :src="item.images.small" :alt="item.alt"></router-link></p>
           <p>{{ item.title }}</p>
-          <p v-if="item&&item.ratings&&item.ratings.average">{{ item.ratings.average }}</p>
+          <p>{{ item.rating.average }}分</p>
           <p>{{ item.year }}</p>
         </div>
       </div>      
@@ -25,7 +25,7 @@ import spinner from './spinner'
         search_result: {
           total: '',
           subjects: [{
-            ratings: {
+            rating: {
               max: '',
               average: ''
             },
@@ -70,26 +70,26 @@ import spinner from './spinner'
 </script>
 
 <style>
-  .in-theaters-area {
+  .res-theaters-area {
     background-color: gray;
+    font-size: 0;
   }
-  .movies-wrap {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
+  .res-movies-wrap {
     text-decoration: none;
+    font-size: 0;
   }
-  .movies-show {
-    flex-grow: 1;
-    width: 30%;
+  .res-movies-show {
+    width: 80%;
+    margin: 0 auto;
     background-color: white;
     text-align: center;
     cursor: pointer;
+    font-size: 0;
   }
-  .movies-show:hover {
+  .res-movies-show:hover {
     background-color: #58B7FF;
   }
-  .movies-show p {
+  .res-movies-show p {
     font-size: 14px;
   }
 </style>

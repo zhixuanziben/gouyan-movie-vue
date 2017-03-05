@@ -1,9 +1,9 @@
 <template>
-  <div class="hello">
+  <div class="top250">
     <spinner v-if='guodu'></spinner>
-    <div class="in-theaters-area">
-      <div class="movies-wrap" >
-        <div class="movies-show" v-for="(item, index) in top250_data_body_subjects" @click="showMoreMsg">
+    <div class="top-theaters-area">
+      <div class="top-movies-wrap" >
+        <div class="top-movies-show" v-for="(item, index) in top250_data_body_subjects" @click="showMoreMsg">
           <p><router-link :to="'movie/'+ item.id"><img :src="item.images.small" :alt="item.alt"></router-link></p>
           <p>{{ item.title }}</p>
           <p>{{ item.rating.average }}</p>
@@ -56,26 +56,25 @@ export default {
   h1 {
     text-align: center;
   }
-  .in-theaters-area {
+  .top-theaters-area {
     background-color: gray;
   }
-  .movies-wrap {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
+  .top-movies-wrap {
     text-decoration: none;
+    font-size: 0;
   }
-  .movies-show {
-    flex-grow: 1;
-    width: 30%;
+  .top-movies-show {
+    width: 80%;
+    margin: 0 auto;
     background-color: white;
     text-align: center;
     cursor: pointer;
+    font-size: 0;
   }
-  .movies-show:hover {
+  .top-movies-show:hover {
     background-color: #58B7FF;
   }
-  .movies-show p {
+  .top-movies-show p {
     font-size: 14px;
   }
 </style>

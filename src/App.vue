@@ -34,7 +34,7 @@ export default {
       this.query = ''
     },
     ceshi: function () {
-      this.$http.jsonp('http://api.douban.com/v2/movie/subject/26865690?apikey=0b2bdeda43b5688921839c8ecb20399b&city=%E5%8C%97%E4%BA%AC&client=something&udid=dddddddddddddddddddddd')
+      this.$http.jsonp('https://api-m.mtime.cn/Movie/Video.api?pageIndex=1&movieId=217896')
         .then(function (response) {
           console.log(JSON.stringify(response))
         })

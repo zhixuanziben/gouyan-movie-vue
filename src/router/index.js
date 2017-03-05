@@ -5,7 +5,10 @@ import comingSoon from '@/components/comingSoon'
 import top250 from '@/components/top250'
 import moviesMsg from '@/components/moviesMsg'
 import serchResult from '@/components/serchResult'
-
+import starMsg from '@/components/starMsg'
+import workerList from '@/components/workerList'
+import comment from '@/components/comment'
+import smallComment from '@/components/smallComment'
 Vue.use(Router)
 
 export default new Router({
@@ -34,6 +37,26 @@ export default new Router({
       path: '/serchResult',
       name: 'serchResult',
       component: serchResult
+    },
+    {
+      path: '/starMsg/:id',
+      name: 'starMsg',
+      component: starMsg
+    },
+    {
+      path: '/workerList/:id',
+      name: 'workerList',
+      component: workerList
+    },
+    {
+      path: '/comment/:id',
+      name: 'comment',
+      component: comment
+    },
+    {
+      path: '/smallComment/:id',
+      name: 'smallComment',
+      component: smallComment
     }
   ]
 })
