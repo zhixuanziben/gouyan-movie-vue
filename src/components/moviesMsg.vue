@@ -1,50 +1,64 @@
 <template>
   <div>
     <spinner v-if='guodu'></spinner>
-    <div  v-if='!guodu'>
-      <div class="header">
-        <div>
+    <div v-if='!guodu'>
+      <div class="header-title">
+        <div class="msg-back" @click="backLastPage">
+          <div></div>
+        </div>
+        <div class="msg-title">{{movieMsg.title}}</div>
+        <div class="msg-back"></div>
+      </div>
+      <section class="msg-movie">
+        <div class="msg-img-wrap">
           <img :src="movieMsg.images.medium" :alt="movieMsg.alt">
         </div>
-        <div>
-          <p>{{movieMsg.title}}</p>
-          <p>{{movieMsg.rating.average}}({{movieMsg.collect_count}}人评分)</p>
+        <div class="">
+          <h3 class="msg-movie-title">{{movieMsg.title}}</h3>
+          <p class="msg-movie-count">{{movieMsg.rating.average}}({{movieMsg.collect_count}}人评分)</p>
           <p>{{movieMsg.year}}</p> 
-          <p><span v-for='item of movieMsg.genres'>{{item}}/</span></p>
+          <p>{{movieMsg.genres.join(', ')}}</span></p>
           <p v-for="item in movieMsg.countries">{{item}}</p>
           <p v-for="item in movieMsg.durations" v-if="item.indexOf('中国')>0">{{item}}</p>
           <p v-for="item in movieMsg.pubdates" v-if="item.indexOf('中国')>0">{{item}}</p>
         </div>
-      </div>
-      <div>
+      </section>
+      <section class="msg-count">
         <div>{{movieMsg.wish_count}}人想看</div>
         <div>{{movieMsg.reviews_count}}人看过</div>
-      </div>
+      </section>
       <div class="intru">
         {{movieMsg.summary}}
       </div>
-      <div v-for="item of movieMsg.directors" @click="starMsg(item.id)">
-        <div v-if="item.avatars.small">
-          <img :src="item.avatars.small" :alt="item.alt">
-        </div>
-        <div>
-          {{item.name}}[导演]
-        </div>
-      </div>
-      <div v-for="item of movieMsg.casts" @click="starMsg(item.id)">
-        <div v-if="item.avatars.small">
-          <img :src="item.avatars.small" :alt="item.alt">
-        </div>
-        <div>
-          {{item.name}}
-        </div>
-      </div>
-      <p @click="workerList(movieMsg.id)">媒体库></p>
-      <div class="duanping">
-        <h2>短评</h2>
+      <section class="msg-scoll-hidden">
+        <section class="msg-star-wrap">
+          <h3>演职人员</h3>
+          <div class="msg-scoll">
+            <div class="msg-star" v-for="item of movieMsg.directors" @click="starMsg(item.id)">
+              <div v-if="item.avatars.small">
+                <img :src="item.avatars.small" :alt="item.alt">
+              </div>
+              <div class="msg-star-name">
+                {{item.name}}[导演]
+              </div>
+            </div><div v-for="item of movieMsg.casts" @click="starMsg(item.id)">
+              <div v-if="item.avatars.small">
+                <img :src="item.avatars.small" :alt="item.alt">
+              </div>
+              <div class="msg-star-name">
+                {{item.name}}
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+      <section class="msg-duanping">
+        <h3>热门短评</h3>
         <div v-for="item in movieMsg.popular_comments">
-          <p>{{item.rating.value}}分</p>
-          <p>{{item.created_at}}</p>
+          <div>
+            <span>{{item.rating.value}}分</span>
+            <span>{{item.created_at}}</span>
+          </div>
           <p>{{item.content}}</p>
           <div>
             <img :src="item.author.avatar" :alt="item.author.alt">
@@ -53,7 +67,7 @@
         </div>
         <p @click="smallComment(movieMsg.id)">查看全部短论</p>
         <p @click="comment(movieMsg.id)">查看全部影评</p>
-      </div>
+      </section>
     </div>
   </div>
 </template>
@@ -167,7 +181,7 @@ import spinner from './spinner'
       }
     },
     components: {
-      spinner: spinner
+      spinner
     },
     mounted: function () {
       this.$nextTick(function () {
@@ -189,10 +203,6 @@ import spinner from './spinner'
         const path = '/starMsg/' + str
         this.$router.push({path: path})
       },
-      workerList: function (str) {
-        const path = '/workerList/' + str
-        this.$router.push({path: path})
-      },
       comment: function (str) {
         const path = '/comment/' + str
         this.$router.push({path: path})
@@ -200,22 +210,113 @@ import spinner from './spinner'
       smallComment: function (str) {
         const path = '/smallComment/' + str
         this.$router.push({path: path})
+      },
+      backLastPage: function () {
+        window.history.go(-1)
       }
     }
   }
 </script>
 
 <style scoped>
-  .nav {
+  .header-title {
     display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    background-color: gray;
+    height: 50px;
+    width: 100%;
+    background-color: #e54847;
+    padding: 6px;
+    box-sizing: border-box;
   }
-  .nav span {
+  .msg-back {
+    width: 50px;
+    position: relative;
+    cursor: pointer;
+  }
+  .msg-back > div {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    height: 13px;
+    width: 13px;
+    border: 2px solid #fff;
+    border-width: 0 0 2px 2px;
+    transform: rotate(45deg);
+  }
+  .msg-title {
     flex: 1;
+    color: #fff;
     text-align: center;
-    text-decoration: none;
-    color: pink;
+    line-height: 2;
+    font-size: 20px;
+    overflow: hidden;
+  }
+  .msg-img-wrap {
+    margin-right: 10px;
+  }
+  .msg-img-wrap img {
+    border: 1px solid white;
+  }
+  .msg-movie {
+    display: flex;
+    padding: 15px;
+    color: #6b6868;
+    background-color: #b4b1b1;
+  }
+  .msg-movie:last-child {
+    padding-left: 10px;
+  }
+  .msg-movie-title {
+    font-size: 20px;
+    color: #343232;
+  }
+  .msg-count {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+  .msg-count div {
+    margin-right: 50px;
+    font-size: 14px;
+    line-height: 30px;
+    text-align: center;
+    width: 100px;
+    height: 30px;
+    color: white;
+    border-radius: 5px;
+    background-color: #e54847;
+  }
+  .msg-star-wrap {
+    padding: 10px;
+  }
+  .msg-scoll {
+    white-space: nowrap;
+    overflow-x: scroll;
+    margin-top: 10px;
+  }
+  .msg-scoll-hidden {
+    overflow: hidden;
+    height: 165px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .msg-scoll > div {
+    display: inline-block;
+    margin-right: 5px;
+  }
+  .msg-star-name {
+    width: 70px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+  }
+  .msg-duanping {
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  .msg-star-wrap h3,
+  .msg-duanping h3 {
+    color: #666;
+    font-size: 15px;
+    font-weight: 700;
   }
 </style>

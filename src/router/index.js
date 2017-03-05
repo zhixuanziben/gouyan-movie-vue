@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import home from '@/components/home'
 import inTheaters from '@/components/inTheaters'
 import comingSoon from '@/components/comingSoon'
 import top250 from '@/components/top250'
@@ -13,6 +14,11 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/home',
+      name: 'home',
+      component: home
+    },
     {
       path: '/inTheaters',
       name: 'inTheaters',

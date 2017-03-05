@@ -1,7 +1,8 @@
 <template>
   <div class="come-soon">
+    <v-header></v-header>
     <spinner v-if='guodu'></spinner>
-    <div class="co-theaters-area">
+    <div v-if='!guodu' class="co-theaters-area">
       <div class="co-movies-wrap" >
         <div class="co-movies-show" v-for="(item, index) in coming_soon_data_body_subjects" @click="showMoreMsg(item.id)">
           <div class="co-movies-show-child">
@@ -21,6 +22,7 @@
 
 <script>
 import spinner from './spinner'
+import vHeader from './header'
 export default {
   name: 'coming_soon',
   data () {
@@ -32,7 +34,8 @@ export default {
     }
   },
   components: {
-    spinner: spinner
+    spinner: spinner,
+    'v-header': vHeader
   },
   mounted: function () {
     this.$http.jsonp('http://api.douban.com/v2/movie/coming_soon')
@@ -61,18 +64,12 @@ export default {
     margin: 0;
     padding: 0;
   }
-  h1 {
-    text-align: center;
-  }
-  .co-theaters-area {
-    background-color: gray;
-  }
   .co-movies-wrap {
     text-decoration: none;
     font-size: 0;
   }
   .co-movies-show {
-    background-color: white;
+    background-color: #f8f8f8;
     cursor: pointer;
     font-size: 0;
     padding: 10px 20px;
@@ -81,7 +78,7 @@ export default {
     display: flex;
     align-items: flex-end;
     padding-bottom: 10px;
-    border-bottom: 1px solid #ece9e9;
+    border-bottom: 1px solid #d6d6d6;
   }
   .co-movieMsg {
     flex: 1;
@@ -95,6 +92,6 @@ export default {
   }
   .co-movies-show p {
     font-size: 14px;
-    color: #837979;
+    color: #666;
   }
 </style>

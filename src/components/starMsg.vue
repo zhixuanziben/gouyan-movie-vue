@@ -1,6 +1,9 @@
 <template>
   <div>
     <spinner v-if='guodu'></spinner>
+    <div>
+      <div @click="backLastPage"><</div>
+    </div>
     <h1>{{starMsg.name_en}}{{starMsg.name}}</h1>
     <div>
       <img :src="starMsg.avatars.large">
@@ -92,6 +95,9 @@ import spinner from './spinner'
       movieMsg: function (str) {
         const path = '/movie/' + str
         this.$router.push({path: path})
+      },
+      backLastPage: function () {
+        window.history.go(-1)
       }
     }
   }

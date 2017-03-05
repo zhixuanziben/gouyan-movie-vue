@@ -1,5 +1,6 @@
 <template>
   <div class="result">
+    <v-header></v-header>
     <spinner v-if='guodu'></spinner>
     <h1 v-if='!guodu' class="title">'{{val}}'的搜索结果, 共{{search_result.total}}条信息</h1>
     <div v-if='!guodu' class="res-theaters-area">
@@ -14,13 +15,14 @@
             </div>
           </div>
         </div>
-      </div>      
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import spinner from './spinner'
+import vHeader from './header'
   export default {
     data () {
       return {
@@ -59,7 +61,8 @@ import spinner from './spinner'
       this.showMoreMsg()
     },
     components: {
-      spinner: spinner
+      spinner: spinner,
+      'v-header': vHeader
     },
     watch: {
       $route: 'showMoreMsg'
@@ -87,7 +90,6 @@ import spinner from './spinner'
 
 <style>
   .res-theaters-area {
-    background-color: gray;
     font-size: 0;
   }
   .res-movies-wrap {
@@ -96,7 +98,7 @@ import spinner from './spinner'
   }
   .res-movies-show {
     padding: 10px 20px;
-    background-color: white;
+    background-color: #f8f8f8;
     cursor: pointer;
     font-size: 0;
   }
@@ -104,7 +106,7 @@ import spinner from './spinner'
     display: flex;
     align-items: center;
     padding-bottom: 10px;
-    border-bottom: 1px solid #ece9e9;
+    border-bottom: 1px solid #d6d6d6;
   }
   .res-movieMsg {
     flex: 1;
@@ -119,7 +121,7 @@ import spinner from './spinner'
   .res-movies-show p {
     font-size: 14px;
     line-height: 2;
-    color: #837979;
+    color: #666;
   }
   .title {
     font-size: 20px;

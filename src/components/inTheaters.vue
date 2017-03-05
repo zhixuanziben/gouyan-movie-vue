@@ -1,7 +1,7 @@
 <template>
   <div class="in-theaters">
-    <spinner v-if='guodu'></spinner>
-    <div class="in-theaters-area">
+    <v-header ></v-header>
+    <div v-if='!guodu' class="in-theaters-area">
       <div class="in-movies-wrap" >
         <div class="in-movies-show" v-for="(item, index) in in_theaters_data_body_subjects" @click="showMoreMsg(item.id)">
           <div class="in-movies-show-child">
@@ -16,11 +16,13 @@
         </div>
       </div>      
     </div>
+    <spinner v-if='guodu'></spinner>
   </div>
 </template>
 
 <script>
 import spinner from './spinner'
+import vHeader from './header'
 export default {
   name: 'hello',
   data () {
@@ -32,7 +34,8 @@ export default {
     }
   },
   components: {
-    spinner: spinner
+    spinner: spinner,
+    'v-header': vHeader
   },
   mounted: function () {
     this.$http.jsonp('http://api.douban.com/v2/movie/in_theaters')
@@ -64,15 +67,12 @@ export default {
   h1 {
     text-align: center;
   }
-  .in-theaters-area {
-    background-color: gray;
-  }
   .in-movies-wrap {
     text-decoration: none;
     font-size: 0;
   }
   .in-movies-show {
-    background-color: white;
+    background-color: #f8f8f8;
     padding: 10px 20px;
     box-sizing: border-box;
     cursor: pointer;
@@ -82,11 +82,11 @@ export default {
     display: flex;
     align-items: flex-end;
     padding-bottom: 10px;
-    border-bottom: 1px solid #ece9e9;
+    border-bottom: 1px solid #d6d6d6;
   }
   .in-movies-show p {
     font-size: 14px;
-    color: #837979;
+    color: #666;
   }
   .movieMsg {
     flex: 1;
