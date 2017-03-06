@@ -64,7 +64,7 @@
     vertical-align: top;
   }
   .v-header-input {
-    width: 150px;
+    width: 100px;
     line-height: 100%;
   }
   .v-load-title h3 {

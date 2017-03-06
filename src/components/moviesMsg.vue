@@ -16,7 +16,7 @@
         <div class="">
           <h3 class="msg-movie-title">{{movieMsg.title}}</h3>
           <p class="msg-movie-count">{{movieMsg.rating.average}}({{movieMsg.collect_count}}人评分)</p>
-          <p>{{movieMsg.year}}</p> 
+          <p>{{movieMsg.year}}年</p> 
           <p>{{movieMsg.genres.join(', ')}}</span></p>
           <p v-for="item in movieMsg.countries">{{item}}</p>
           <p v-for="item in movieMsg.durations" v-if="item.indexOf('中国')>0">{{item}}</p>
@@ -27,7 +27,7 @@
         <div>{{movieMsg.wish_count}}人想看</div>
         <div>{{movieMsg.reviews_count}}人看过</div>
       </section>
-      <div class="intru">
+      <div class="msg-summary">
         {{movieMsg.summary}}
       </div>
       <section class="msg-scoll-hidden">
@@ -55,18 +55,18 @@
       <section class="msg-duanping">
         <h3>热门短评</h3>
         <div v-for="item in movieMsg.popular_comments">
-          <div>
+          <div class="">
             <span>{{item.rating.value}}分</span>
             <span>{{item.created_at}}</span>
           </div>
-          <p>{{item.content}}</p>
-          <div>
+          <p class="author-content">{{item.content}}</p>
+          <div class="author-img">
             <img :src="item.author.avatar" :alt="item.author.alt">
             <span>{{item.author.name}}</span>
           </div>
         </div>
-        <p @click="smallComment(movieMsg.id)">查看全部短论</p>
-        <p @click="comment(movieMsg.id)">查看全部影评</p>
+        <p @click="smallComment(movieMsg.id)" class="msg-all-Comment">查看全部短论</p>
+        <p @click="comment(movieMsg.id)" class="msg-all-Comment">查看全部影评</p>
       </section>
     </div>
   </div>
@@ -275,7 +275,8 @@ import spinner from './spinner'
     padding: 10px;
   }
   .msg-count div {
-    margin-right: 50px;
+    margin-right: 20px;
+    margin-left: 20px;
     font-size: 14px;
     line-height: 30px;
     text-align: center;
@@ -284,6 +285,11 @@ import spinner from './spinner'
     color: white;
     border-radius: 5px;
     background-color: #e54847;
+  }
+  .msg-summary {
+    padding: 10px;
+    font-size: 14px;
+    color: #555;
   }
   .msg-star-wrap {
     padding: 10px;
@@ -318,5 +324,35 @@ import spinner from './spinner'
     color: #666;
     font-size: 15px;
     font-weight: 700;
+    margin-bottom: 5px;
+  }
+  .author-content {
+    color: #333;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  .author-img {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #d6d3d3;
+  }
+  .author-img:last-child {
+    margin-bottom: 0;
+  }
+  .author-img img {
+    border-radius: 50%;
+  }
+  .author-img span {
+    vertical-align: 80%;
+    margin-left: 5px;
+    color: #999;
+  }
+  .msg-all-Comment {
+    color: #e54847;
+    font-weight: lighter;
+    text-align: center;
+    font-size: 15px;
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid #d6d3d3;
   }
 </style>

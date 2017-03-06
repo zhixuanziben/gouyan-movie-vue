@@ -1,25 +1,33 @@
 <template>
   <div>
     <spinner v-if='guodu'></spinner>
-    <h1>所有长评--{{commentsMsg.subject.title}}</h1>
-    <div>
-      <div v-for="item in commentsMsg.reviews">
-        <h2>{{item.title}}</h2>
-        <div>
-          <img :src="item.author.avatar" :alt="item.author.alt">{{item.author.name}}/{{item.rating.value}}/{{item.created_at}}
+    <div v-if='!guodu'>
+      <header class="largeCom-header-title">
+        <div class="largeCom-back" @click="backLastPage">
+          <div></div>
         </div>
-        <div @click="showContent">
-          {{item.summary}}
-          <p>^</p>
+        <div class="largeCom-title">长评--{{commentsMsg.subject.title}}</div>
+        <div class="largeCom-back"></div>
+      </header>
+      <section class="largeCom-wrap">
+        <div v-for="(item, index) in commentsMsg.reviews" class="largeCom-content">
+          <h3>标题：{{item.title}}</h3>
+          <div>
+            <img :src="item.author.avatar" :alt="item.author.alt">{{item.author.name}}/{{item.rating.value}}/{{item.created_at}}
+          </div>
+          <div @click="showContent(index)">
+            {{item.summary}}
+            <p>^</p>
+          </div>
+          <div @click="showSummary" v-if="commentsMsg.reviews[index].contentShow">
+            {{item.content}}
+          </div>
+          <div>
+            {{item.useful_count}}赞同
+            {{item.useless_count}}反对
+          </div>
         </div>
-        <div @click="showSummary">
-          {{item.content}}
-        </div>
-        <div>
-          {{item.useful_count}}赞同
-          {{item.useless_count}}反对
-        </div>
-      </div>
+      </section>
     </div>
   </div>
 </template>
@@ -76,16 +84,62 @@ import spinner from './spinner'
           })
     },
     methods: {
-      showContent: function () {
-        this.commentsMsg.reviews.contentShow = !this.commentsMsg.reviews.contentShow
+      showContent: function (ind) {
+        console.log(typeof this.commentsMsg.reviews[ind].contentShow)
+        this.commentsMsg.reviews[ind].contentShow = true
+        console.log(this.commentsMsg.reviews[ind].contentShow)
       },
       showSummary: function () {
         this.commentsMsg.reviews.summaryShow = !this.commentsMsg.reviews.summaryShow
+      },
+       backLastPage: function () {
+        window.history.go(-1)
       }
     }
   }
 </script>
 
 <style>
-  
+  .largeCom-header-title {
+    display: flex;
+    height: 50px;
+    width: 100%;
+    background-color: #e54847;
+    padding: 6px;
+    box-sizing: border-box;
+  }
+  .largeCom-back {
+    width: 50px;
+    position: relative;
+    cursor: pointer;
+  }
+  .largeCom-back > div {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    height: 13px;
+    width: 13px;
+    border: 2px solid #fff;
+    border-width: 0 0 2px 2px;
+    transform: rotate(45deg);
+  }
+  .largeCom-title {
+    flex: 1;
+    color: #fff;
+    text-align: center;
+    line-height: 2;
+    font-size: 20px;
+    overflow: hidden;
+  }
+  .largeCom-wrap {
+    padding: 10px;
+  }
+  .largeCom-content h3 {
+    font-size: 16px;
+  }
+  .largeCom-content img {
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+  }
 </style>
