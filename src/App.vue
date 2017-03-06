@@ -8,6 +8,9 @@
   export default {
     data () {
       return {}
+    },
+    created: function () {
+      this.$router.push({path: '/inTheaters'})
     }
   }
 </script>
