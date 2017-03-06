@@ -10,6 +10,7 @@ import starMsg from '@/components/starMsg'
 import workerList from '@/components/workerList'
 import comment from '@/components/comment'
 import smallComment from '@/components/smallComment'
+import searchPage from '@/components/searchPage'
 Vue.use(Router)
 
 export default new Router({
@@ -63,6 +64,11 @@ export default new Router({
       path: '/smallComment/:id',
       name: 'smallComment',
       component: smallComment
+    },
+    {
+      path: '/searchPage',
+      name: 'searchPage',
+      component: searchPage
     }
   ]
 })

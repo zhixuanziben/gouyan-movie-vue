@@ -12,20 +12,22 @@
       <section class="largeCom-wrap">
         <div v-for="(item, index) in commentsMsg.reviews" class="largeCom-content">
           <h3>标题：{{item.title}}</h3>
-          <div>
-            <img :src="item.author.avatar" :alt="item.author.alt">{{item.author.name}}/{{item.rating.value}}/{{item.created_at}}
+          <div class="largeCom-content-header">
+            <img :src="item.author.avatar" :alt="item.author.alt">
+            <span>{{item.author.name}} </span>
+            <span class="largeCom-content-header-rating">{{item.rating.value}}分</span>
+            <span>{{item.created_at}}</span>
           </div>
           <div @click="showContent(index)">
             {{item.summary}}
-            <p>^</p>
           </div>
           <div @click="showSummary" v-if="commentsMsg.reviews[index].contentShow">
             {{item.content}}
           </div>
-          <div>
+          <footer>
             {{item.useful_count}}赞同
             {{item.useless_count}}反对
-          </div>
+          </footer>
         </div>
       </section>
     </div>
@@ -85,9 +87,9 @@ import spinner from './spinner'
     },
     methods: {
       showContent: function (ind) {
-        console.log(typeof this.commentsMsg.reviews[ind].contentShow)
-        this.commentsMsg.reviews[ind].contentShow = true
-        console.log(this.commentsMsg.reviews[ind].contentShow)
+        // console.log(typeof this.commentsMsg.reviews[ind].contentShow)
+        // this.commentsMsg.reviews[ind].contentShow = true
+        // console.log(this.commentsMsg.reviews[ind].contentShow)
       },
       showSummary: function () {
         this.commentsMsg.reviews.summaryShow = !this.commentsMsg.reviews.summaryShow
@@ -134,12 +136,29 @@ import spinner from './spinner'
   .largeCom-wrap {
     padding: 10px;
   }
+  .largeCom-content {
+    margin-bottom: 10px;
+  }
   .largeCom-content h3 {
     font-size: 16px;
   }
   .largeCom-content img {
     width: 48px;
     height: 48px;
-    border-radius: 24px;
+    border-radius: 24px;  
+    margin-right: 5px;
+  }
+  .largeCom-content-header {
+    display: flex;
+  }
+  .largeCom-content-header span {
+    align-self: center;
+  }
+  .largeCom-content-header-rating {
+    flex: 1;
+    margin-left: 10px;  
+  }
+  .largeCom-content footer {
+    text-align: right;
   }
 </style>

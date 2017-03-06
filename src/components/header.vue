@@ -34,8 +34,7 @@
     },
     methods: {
       serch: function () {
-        this.$router.push({path: '/serchResult', query: { name: this.query }})
-        this.query = ''
+        this.$router.push({path: '/searchPage'})
       }
     }
   }
