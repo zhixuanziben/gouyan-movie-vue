@@ -70,7 +70,7 @@ import vHeader from './header'
     methods: {
       showMoreMsg: function () {
         this.val = this.$route.query.name
-        const serchUrl = 'http://api.douban.com/v2/movie/search?q=' + this.val
+        const serchUrl = 'https://api.douban.com/v2/movie/search?q=' + this.val
         this.$http.jsonp(serchUrl)
         .then(function (response) {
           this.guodu = false

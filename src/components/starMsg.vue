@@ -87,7 +87,7 @@ import spinner from './spinner'
     },
     components: {spinner},
     mounted: function () {
-      this.$http.jsonp('http://api.douban.com/v2/movie/celebrity/' + this.$route.params.id)
+      this.$http.jsonp('https://api.douban.com/v2/movie/celebrity/' + this.$route.params.id)
           .then(function (response) {
             this.guodu = false
             this.starMsg = response.body

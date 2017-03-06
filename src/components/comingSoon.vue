@@ -38,7 +38,7 @@ export default {
     'v-header': vHeader
   },
   mounted: function () {
-    this.$http.jsonp('http://api.douban.com/v2/movie/coming_soon')
+    this.$http.jsonp('https://api.douban.com/v2/movie/coming_soon')
         .then(function (response) {
           this.guodu = false
           this.coming_soon_data = response

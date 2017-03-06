@@ -186,7 +186,7 @@ import spinner from './spinner'
     mounted: function () {
       this.$nextTick(function () {
         const _this = this
-        const id = 'http://api.douban.com/v2/movie/subject/' + this.$route.params.id + '?apikey=0b2bdeda43b5688921839c8ecb20399b&city=%E5%8C%97%E4%BA%AC&client=something&udid=dddddddddddddddddddddd'
+        const id = 'https://api.douban.com/v2/movie/subject/' + this.$route.params.id + '?apikey=0b2bdeda43b5688921839c8ecb20399b&city=%E5%8C%97%E4%BA%AC&client=something&udid=dddddddddddddddddddddd'
         this.$http.jsonp(id)
         .then(function (response) {
           _this.movieMsg = response.body
