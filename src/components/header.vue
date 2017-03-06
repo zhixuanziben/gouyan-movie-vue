@@ -17,7 +17,6 @@
     <div class="v-nav-bar">
       <router-link to="/inTheaters" class="v-nav">正在热映</router-link>
       <router-link to="/comingSoon" class="v-nav">即将上映</router-link>
-      <router-link to="/comingSoon" class="v-nav">电影票房</router-link>
     </div>
     <div>
       

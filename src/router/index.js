@@ -1,13 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import home from '@/components/home'
 import inTheaters from '@/components/inTheaters'
 import comingSoon from '@/components/comingSoon'
-import top250 from '@/components/top250'
 import moviesMsg from '@/components/moviesMsg'
 import serchResult from '@/components/serchResult'
 import starMsg from '@/components/starMsg'
-import workerList from '@/components/workerList'
 import comment from '@/components/comment'
 import smallComment from '@/components/smallComment'
 import searchPage from '@/components/searchPage'
@@ -15,11 +12,6 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
-      path: '/home',
-      name: 'home',
-      component: home
-    },
     {
       path: '/inTheaters',
       name: 'inTheaters',
@@ -36,11 +28,6 @@ export default new Router({
       component: comingSoon
     },
     {
-      path: '/top250',
-      name: 'top250',
-      component: top250
-    },
-    {
       path: '/serchResult',
       name: 'serchResult',
       component: serchResult
@@ -49,11 +36,6 @@ export default new Router({
       path: '/starMsg/:id',
       name: 'starMsg',
       component: starMsg
-    },
-    {
-      path: '/workerList/:id',
-      name: 'workerList',
-      component: workerList
     },
     {
       path: '/comment/:id',
