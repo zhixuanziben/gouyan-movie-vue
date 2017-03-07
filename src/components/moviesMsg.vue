@@ -15,6 +15,7 @@
         </div>
         <div class="">
           <h3 class="msg-movie-title">{{movieMsg.title}}</h3>
+          <star :score="movieMsg.rating.average"></star>
           <p class="msg-movie-count">{{movieMsg.rating.average}}({{movieMsg.collect_count}}人评分)</p>
           <p>{{movieMsg.year}}年</p> 
           <p>{{movieMsg.genres.join(', ')}}</span></p>
@@ -55,8 +56,8 @@
       <section class="msg-duanping">
         <h3>热门短评</h3>
         <div v-for="item in movieMsg.popular_comments">
-          <div class="">
-            <span>{{item.rating.value}}分</span>
+          <div class="msg-rating">
+            <star :score="item.rating.value*2"></star>
             <span>{{item.created_at}}</span>
           </div>
           <p class="author-content">{{item.content}}</p>
@@ -73,7 +74,8 @@
 </template>
 
 <script>
-import spinner from './spinner'
+import spinner from './spinner/spinner'
+import star from './star/star'
   export default {
     data () {
       return {
@@ -181,7 +183,7 @@ import spinner from './spinner'
       }
     },
     components: {
-      spinner
+      spinner, star
     },
     mounted: function () {
       this.$nextTick(function () {
@@ -354,5 +356,11 @@ import spinner from './spinner'
     height: 30px;
     line-height: 30px;
     border-bottom: 1px solid #d6d3d3;
+  }
+  .msg-rating {
+    display: flex;
+  }
+  .msg-rating:last-child {
+    flex: 1;
   }
 </style>

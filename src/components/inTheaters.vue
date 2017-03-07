@@ -8,6 +8,7 @@
             <div class="posters"><img :src="item.images.small" :alt="item.alt"></div>
             <div class="movieMsg">
               <h2>{{ item.title }}</h2>
+              <star :score="item.rating.average"></star>
               <p>{{ item.rating.average }}分</p>
               <p>导演:{{ item.directors[0].name}}</p>
               <p>主演:{{ item.casts[0].name}}, {{ item.casts[1].name}}</p>
@@ -21,8 +22,9 @@
 </template>
 
 <script>
-import spinner from './spinner'
-import vHeader from './header'
+import spinner from './spinner/spinner'
+import vHeader from './header/header'
+import star from './star/star'
 export default {
   name: 'hello',
   data () {
@@ -35,7 +37,8 @@ export default {
   },
   components: {
     spinner: spinner,
-    'v-header': vHeader
+    'v-header': vHeader,
+    star: star
   },
   mounted: function () {
     this.$http.jsonp('https://api.douban.com/v2/movie/in_theaters')

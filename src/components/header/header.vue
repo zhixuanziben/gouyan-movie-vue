@@ -3,7 +3,7 @@
     <div class="v-header">
       <div class="v-header-logo">
         <div>
-          <img src="https://ms0.meituan.net/canary/img/avatar.png">
+          <img src="../../assets/logo.png">
         </div>
         <div class="v-load-title">
           <h3>狗眼电影</h3>

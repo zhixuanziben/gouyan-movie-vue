@@ -15,7 +15,7 @@
           <div class="largeCom-content-header">
             <img :src="item.author.avatar" :alt="item.author.alt">
             <span>{{item.author.name}} </span>
-            <span class="largeCom-content-header-rating">{{item.rating.value}}分</span>
+            <star :score="item.rating.value*2" class="largeCom-star"></star>
             <span>{{item.created_at}}</span>
           </div>
           <div @click="showContent(index)">
@@ -35,7 +35,8 @@
 </template>
 
 <script>
-import spinner from './spinner'
+import spinner from './spinner/spinner'
+import star from './star/star'
   export default {
     data () {
       return {
@@ -72,7 +73,8 @@ import spinner from './spinner'
       }
     },
     components: {
-      spinner: spinner
+      spinner: spinner,
+      star: star
     },
     mounted: function () {
       this.$http.jsonp('https://api.douban.com/v2/movie/subject/' + this.$route.params.id + '/reviews?apikey=0b2bdeda43b5688921839c8ecb20399b&start=0&count=20&client=something&udid=dddddddddddddddddddddd')
@@ -160,5 +162,9 @@ import spinner from './spinner'
   }
   .largeCom-content footer {
     text-align: right;
+  }
+  .largeCom-star {
+    display: inline-block;
+    line-height: 48px;
   }
 </style>

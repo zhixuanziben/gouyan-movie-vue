@@ -15,14 +15,14 @@
             </div>
           </div>
         </div>
-      </div>      
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import spinner from './spinner'
-import vHeader from './header'
+import spinner from './spinner/spinner'
+import vHeader from './header/header'
 export default {
   name: 'coming_soon',
   data () {

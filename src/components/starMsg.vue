@@ -32,6 +32,7 @@
               <p>{{item.subject.year}}</p>
             </div>
             <div>
+              <star :score="item.subject.rating.average"></star>
               {{item.subject.rating.average}}分
               {{item.subject.collect_count}}人评价
             </div>
@@ -43,7 +44,8 @@
 </template>
 
 <script>
-import spinner from './spinner'
+import spinner from './spinner/spinner'
+import star from './star/star'
   export default {
     data () {
       return {
@@ -85,7 +87,7 @@ import spinner from './spinner'
         }
       }
     },
-    components: {spinner},
+    components: {spinner, star},
     mounted: function () {
       this.$http.jsonp('https://api.douban.com/v2/movie/celebrity/' + this.$route.params.id)
           .then(function (response) {

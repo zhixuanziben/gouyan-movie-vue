@@ -10,6 +10,7 @@
             <div><img :src="item.images.small" :alt="item.alt"></div>
             <div class="res-movieMsg">
               <h2>{{ item.title }}</h2>
+              <star :score="item.rating.average"></star>
               <p>{{ item.rating.average }}分({{ item.collect_count }}评价)</p>
               <p>{{ item.year }}年</p>
             </div>
@@ -21,8 +22,9 @@
 </template>
 
 <script>
-import spinner from './spinner'
-import vHeader from './header'
+import spinner from './spinner/spinner'
+import vHeader from './header/header'
+import star from './star/star'
   export default {
     data () {
       return {
@@ -62,7 +64,8 @@ import vHeader from './header'
     },
     components: {
       spinner: spinner,
-      'v-header': vHeader
+      'v-header': vHeader,
+      star: star
     },
     watch: {
       $route: 'showMoreMsg'

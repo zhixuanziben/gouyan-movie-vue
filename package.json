@@ -12,7 +12,6 @@
   "dependencies": {
     "vue": "^2.2.1",
     "vue-router": "^2.2.0",
-    "axios": "^0.15.3",
     "vue-resource": "^1.2.1"
   },
   "devDependencies": {
