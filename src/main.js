@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import vueResource from 'vue-resource'
-import spinner from './components/spinner'
+import spinner from './components/spinner/spinner'
 
 Vue.config.productionTip = false
 Vue.use(vueResource)
