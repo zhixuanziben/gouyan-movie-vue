@@ -1,7 +1,10 @@
-# douban
-
-> learn doubanAPI
-
+# 运行项目
+  克隆整个项目，安装依赖，npm run dev
+  git clone https://github.com/zhixuanziben/gouyan-movie-vue.git
+  cd vue2.x-douban
+  npm install
+# 在线demo
+  https://zhixuanziben.github.io/gouyan-demo/dist/index.html#/inTheaters
 ## Build Setup
 
 ``` bash
@@ -17,5 +20,5 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+# 技术栈
+  vue + vue-router + vue-resource
