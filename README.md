@@ -8,7 +8,7 @@
   https://zhixuanziben.github.io/gouyan-demo/dist/index.html#/inTheaters
 
 # 项目git截图
-  ![](https://github.com/zhixuanziben/gouyan-movie-vue/row/master/gouyan.gif)  
+  ![image](https://github.com/zhixuanziben/gouyan-movie-vue/raw/master/gouyan.gif)  
 
 # 运行项目
 ``` bash
