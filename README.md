@@ -1,5 +1,6 @@
 # 运行项目
   克隆整个项目，安装依赖，npm run dev
+  ``` bash
   git clone https://github.com/zhixuanziben/gouyan-movie-vue.git
   cd vue2.x-douban
   npm install
