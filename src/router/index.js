@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import inTheaters from '@/components/inTheaters'
-import comingSoon from '@/components/comingSoon'
-import moviesMsg from '@/components/moviesMsg'
-import serchResult from '@/components/serchResult'
-import starMsg from '@/components/starMsg'
-import comment from '@/components/comment'
-import smallComment from '@/components/smallComment'
-import searchPage from '@/components/searchPage'
+import inTheaters from '../components/inTheaters'
+import comingSoon from '../components/comingSoon'
+import moviesMsg from '../components/moviesMsg'
+import serchResult from '../components/serchResult'
+import starMsg from '../components/starMsg'
+import comment from '../components/comment'
+import smallComment from '../components/smallComment'
+import searchPage from '../components/searchPage'
 Vue.use(Router)
 
 export default new Router({
