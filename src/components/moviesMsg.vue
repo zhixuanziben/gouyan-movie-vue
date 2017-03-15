@@ -18,7 +18,7 @@
           <star :score="movieMsg.rating.average"></star>
           <p class="msg-movie-count">{{movieMsg.rating.average}}({{movieMsg.collect_count}}人评分)</p>
           <p>{{movieMsg.year}}年</p> 
-          <p>{{movieMsg.genres.join(', ')}}</span></p>
+          <p>{{movieMsg.genres.join(', ')}}</p>
           <p v-for="item in movieMsg.countries">{{item}}</p>
           <p v-for="item in movieMsg.durations" v-if="item.indexOf('中国')>0">{{item}}</p>
           <p v-for="item in movieMsg.pubdates" v-if="item.indexOf('中国')>0">{{item}}</p>
