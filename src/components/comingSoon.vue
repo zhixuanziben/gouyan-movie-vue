@@ -10,7 +10,10 @@
             <div class="co-movieMsg">
               <h2>{{ item.title }}</h2>
               <p>导演: {{ item.directors[0].name}}</p>
-              <p>主演: {{ item.casts[0].name}}, {{ item.casts[1].name}}</p>
+              <p>
+                主演:{{ item.casts[0].name}}
+                <span v-if="item.casts[1]">, {{ item.casts[1].name }}</span>
+              </p>
               <p>类型: {{item.genres.join(', ')}}</p>
             </div>
           </div>
