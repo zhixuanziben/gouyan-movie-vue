@@ -11,7 +11,10 @@
               <star :score="item.rating.average"></star>
               <p>{{ item.rating.average }}分</p>
               <p>导演:{{ item.directors[0].name}}</p>
-              <p>主演:{{ item.casts[0].name}}, {{ item.casts[1].name}}</p>
+              <p>
+                主演:{{ item.casts[0].name}}
+                <span v-if="item.casts[1]">, {{ item.casts[1].name }}</span>
+              </p>
             </div>
           </div>
         </div>
