@@ -105,7 +105,7 @@
     margin: auto;
     text-decoration: none;
     border: 1px solid #f3f3f3;
-    background-image: url(../assets/img/search_1.png);
+    background-image: url(/static/img/search_1.png);
     background-repeat: no-repeat;
     background-position:center;
     background-color: #f3f3f3;

@@ -1,6 +1,6 @@
 <template>
   <div class="banner_bg">
-    <img src="../../assets/img/promotion_bg.jpg" alt="app">
+    <img src="/static/img/promotion_bg.jpg" alt="app">
     <div class="banner_wrapper">
       <div class="promo_title">
         <span>用App打开</span>
