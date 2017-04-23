@@ -1,25 +1,12 @@
 <template>
   <div>
     <div class="v-header">
-      <div class="v-header-logo">
-        <div>
-          <img src="../../assets/logo.png">
-        </div>
-        <div class="v-load-title">
-          <h3>狗眼电影</h3>
-          <div>查影讯，上狗眼电影就够了！</div>
-        </div>
+      <div class="v-load-title">
+        <a href="/inTheaters">豆瓣电影</a>
       </div>
-      <div class="v-header-input" @click="serch">
-        <input class="v-inp" type="text" v-model.trim="query" placeholder="请输入电影名"></input>
+      <div class="v-header-search" @click="search">
+        <img src="./../../assets/img/search.png">
       </div>
-    </div>
-    <div class="v-nav-bar">
-      <router-link to="/inTheaters" class="v-nav">正在热映</router-link>
-      <router-link to="/comingSoon" class="v-nav">即将上映</router-link>
-    </div>
-    <div>
-      
     </div>
   </div>
 </template>
@@ -32,68 +19,38 @@
       }
     },
     methods: {
-      serch: function () {
+      search: function () {
         this.$router.push({path: '/searchPage'})
       }
     }
   }
 </script>
 
-<style>
+<style scoped>
   .v-header {
     display: flex;
     flex-flow: row wrap;
-    justify-content: center;
-    height: 60px;
-    padding: 10px 20px;
+    height: 50px;
+    padding: 10px 10px;
     box-sizing: border-box;
+    background-color: #fff;
+    overflow: hidden;
+    border-bottom: 1px solid #f3f3f3;
   }
-  .v-header-logo {
-    flex: 1;
+  .v-header-search {
+    width: 50px;
+    position: absolute;
+    top: 5px;
+    right: 0px;
   }
-  .v-header-logo > div {
-    display: inline-block;
+  .v-load-title a {
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 30px;
+    letter-spacing: 1px;
+    color: #00b600;
   }
-  .v-header-logo > div:first-child img{
-    height: 42px;
-    width: 42px;
-  }
-  .v-header-logo > div:last-child {
-    vertical-align: top;
-  }
-  .v-header-input {
-    width: 100px;
-    line-height: 100%;
-  }
-  .v-load-title h3 {
-    font-size: 17px;
-    font-weight: 700;
-    color: #333;
-  }
-  .v-load-title div {
-    font-size: 12px;
-    color: #999;
-  }
-  .v-nav-bar {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    background-color: #df2d2d;
-  }
-  .v-nav {
-    flex: 1;
-    text-align: center;
+  .v-load-title a:link {
     text-decoration: none;
-    height: 35px;
-    line-height: 35px;
-    font-size: 20px;
-    color: #F9FAFC;
-  }
-  .v-inp {
-    width: 100%;
-    height: 40px;
-    border-style: none;
-    border-radius: 15px;
-    padding-left: 10px;
   }
 </style>
