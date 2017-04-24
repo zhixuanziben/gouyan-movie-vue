@@ -5,7 +5,7 @@
         <a href="/inTheaters">豆瓣电影</a>
       </div>
       <div class="v-header-search" @click="search">
-        <img src="/static/img/search.png">
+        <img src="../../assets/img/search.png">
       </div>
     </div>
   </div>

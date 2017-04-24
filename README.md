@@ -4,9 +4,6 @@
 # 技术栈
   vue + vue-router + vue-resource
 
-# 在线demo
-  https://hizoubin.github.io/demo/douban-movie/#/inTheaters
-
 # 项目git截图
   ![comingSoon](doc/comingSoon.png)  
   ![inTheaters](doc/inTheaters.png)  

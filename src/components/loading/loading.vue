@@ -1,6 +1,6 @@
 <template>
 <div class="loading">
-  <img src="/static/img/loading.gif">
+  <img src="../../assets/img/loading.gif">
   <span>加载中</span>
 </div>
 </template>
