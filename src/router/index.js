@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import inTheaters from '../components/inTheaters'
-import comingSoon from '../components/comingSoon'
-import moviesMsg from '../components/moviesMsg'
-import serchResult from '../components/serchResult'
-import starMsg from '../components/starMsg'
-import comment from '../components/comment'
-import smallComment from '../components/smallComment'
-import searchPage from '../components/searchPage'
+import inTheaters from '../views/inTheaters'
+import comingSoon from '../views/comingSoon'
+import moviesMsg from '../views/moviesMsg'
+import serchResult from '../views/serchResult'
+import cinecism from '../views/cinecism'
+import shortCommentary from '../views/shortCommentary'
+import searchPage from '../views/searchPage'
 Vue.use(Router)
 
 export default new Router({
@@ -33,19 +32,14 @@ export default new Router({
       component: serchResult
     },
     {
-      path: '/starMsg/:id',
-      name: 'starMsg',
-      component: starMsg
+      path: '/cinecism/:id',
+      name: 'cinecism',
+      component: cinecism
     },
     {
-      path: '/comment/:id',
-      name: 'comment',
-      component: comment
-    },
-    {
-      path: '/smallComment/:id',
-      name: 'smallComment',
-      component: smallComment
+      path: '/shortCommentary/:id',
+      name: 'shortCommentary',
+      component: shortCommentary
     },
     {
       path: '/searchPage',

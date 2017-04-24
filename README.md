@@ -4,11 +4,14 @@
 # 技术栈
   vue + vue-router + vue-resource
 
-# 在线demo
-  https://zhixuanziben.github.io/gouyan-demo/dist/index.html#/inTheaters
-
 # 项目git截图
-  ![image](https://github.com/zhixuanziben/gouyan-movie-vue/raw/master/gouyan.gif)  
+  ![comingSoon](doc/comingSoon.png)  
+  ![inTheaters](doc/inTheaters.png)  
+  ![movieMsg](doc/movieMsg.png)  
+  ![searchPage](doc/searchPage.png)  
+  ![searchResult](doc/cinecism.png)  
+  ![shortCommentary](doc/shortCommentary.png)  
+  ![cinecism](doc/cinecism.png)  
 
 # 运行项目
 ``` bash

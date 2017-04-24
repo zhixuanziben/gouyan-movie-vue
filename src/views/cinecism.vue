@@ -1,32 +1,31 @@
 <template>
   <div>
-    <spinner v-if='guodu'></spinner>
-    <div v-if='!guodu'>
-      <header class="largeCom-header-title">
-        <div class="largeCom-back" @click="backLastPage">
-          <div></div>
-        </div>
-        <div class="largeCom-title">长评--{{commentsMsg.subject.title}}</div>
-        <div class="largeCom-back"></div>
-      </header>
-      <section class="largeCom-wrap">
-        <div v-for="(item, index) in commentsMsg.reviews" class="largeCom-content">
-          <h3>标题：{{item.title}}</h3>
-          <div class="largeCom-content-header">
+    <loading v-if='loading'></loading>
+    <div v-if='!loading'>
+      <v-header></v-header>
+      <banner-bg></banner-bg>
+      <section class="subject">
+        <span>{{commentsMsg.subject.title}}</span>
+      </section>
+      <section class="title-wrapper">
+        <h1>全部影评</h1>
+      </section>
+      <section class="cinecism-wrap">
+        <div v-for="(item, index) in commentsMsg.reviews" class="cinecism-content">
+          <h3>{{item.title}}</h3>
+          <div class="cinecism-content-header">
             <img :src="item.author.avatar" :alt="item.author.alt">
-            <span>{{item.author.name}} </span>
-            <star :score="item.rating.value*2" class="largeCom-star"></star>
-            <span>{{item.created_at}}</span>
+            <span class="smallCom-author-name">{{item.author.name}}</span>
+            <star :score="item.rating.value*2" class="cinecism-star"></star>
           </div>
-          <div @click="showContent(index)">
+          <div @click="showContent(index)" class="abstract">
             {{item.summary}}
           </div>
           <div @click="showSummary" v-if="commentsMsg.reviews[index].contentShow">
             {{item.content}}
           </div>
           <footer>
-            {{item.useful_count}}赞同
-            {{item.useless_count}}反对
+            {{item.useful_count}}有用
           </footer>
         </div>
       </section>
@@ -35,12 +34,14 @@
 </template>
 
 <script>
-import spinner from './spinner/spinner'
-import star from './star/star'
+import vHeader from '../components/header/header'
+import bannerBg from '../components/header/banner_bg'
+import loading from '../components/loading/loading'
+import star from '../components/star/star'
   export default {
     data () {
       return {
-        guodu: true,
+        loading: true,
         commentsMsg: {
           reviews: [{
             rating: {
@@ -62,7 +63,6 @@ import star from './star/star'
             share_url: '',
             summary: '',
             content: '',
-            useless_count: '',
             useful_count: ''
           }],
           total: '',
@@ -73,13 +73,15 @@ import star from './star/star'
       }
     },
     components: {
-      spinner: spinner,
-      star: star
+      loading: loading,
+      star: star,
+      'v-header': vHeader,
+      'banner-bg': bannerBg
     },
     mounted: function () {
       this.$http.jsonp('https://api.douban.com/v2/movie/subject/' + this.$route.params.id + '/reviews?apikey=0b2bdeda43b5688921839c8ecb20399b&start=0&count=20&client=something&udid=dddddddddddddddddddddd')
           .then(function (response) {
-            this.guodu = false
+            this.loading = false
             this.commentsMsg = response.body
             // console.log(JSON.stringify(response))
           })
@@ -104,67 +106,64 @@ import star from './star/star'
 </script>
 
 <style>
-  .largeCom-header-title {
-    display: flex;
-    height: 50px;
-    width: 100%;
-    background-color: #e54847;
-    padding: 6px;
-    box-sizing: border-box;
+  .subject {
+    border-bottom: 1px solid #f4f4f4;
+    padding: 10px 0 10px 10px;
   }
-  .largeCom-back {
-    width: 50px;
-    position: relative;
-    cursor: pointer;
-  }
-  .largeCom-back > div {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    height: 13px;
-    width: 13px;
-    border: 2px solid #fff;
-    border-width: 0 0 2px 2px;
-    transform: rotate(45deg);
-  }
-  .largeCom-title {
-    flex: 1;
-    color: #fff;
-    text-align: center;
-    line-height: 2;
-    font-size: 20px;
-    overflow: hidden;
-  }
-  .largeCom-wrap {
-    padding: 10px;
-  }
-  .largeCom-content {
-    margin-bottom: 10px;
-  }
-  .largeCom-content h3 {
+  .subject span {
+    color: #42bd56;
     font-size: 16px;
+    line-height: 24px;
   }
-  .largeCom-content img {
-    width: 48px;
-    height: 48px;
-    border-radius: 24px;  
+  .title-wrapper {
+    border-bottom: 1px solid #f4f4f4;
+  }
+  .title-wrapper h1 {
+    font-size: 24px;
+    line-height: 32px;
+    margin: 15px 0 15px 10px;
+    word-break: break-all;
+  }
+  .cinecism-content {
+    padding: 15px;
+  }
+  .cinecism-content h3 {
+    font-size: 17px;
+    color: #494949;
+    font-weight: 500;
+    line-height: 1.41;
+    margin: 5px 0 5px;
+  }
+  .cinecism-content img {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    vertical-align: middle;
     margin-right: 5px;
   }
-  .largeCom-content-header {
+  .cinecism-content-header {
     display: flex;
+    margin: 10px 0 10px;
   }
-  .largeCom-content-header span {
+  .cinecism-content-header span {
     align-self: center;
   }
-  .largeCom-content-header-rating {
+  .cinecism-content-header-rating {
     flex: 1;
-    margin-left: 10px;  
+    margin-left: 10px;
   }
-  .largeCom-content footer {
-    text-align: right;
+  .abstract, .cinecism-content footer {
+    color: #aaaaaa;
+    font-size: 12px;
+    line-height: 1.5;
   }
-  .largeCom-star {
+  .cinecism-content footer {
+    margin: 10px 0 0;
+    text-align: left;
+  }
+  .cinecism-star {
     display: inline-block;
-    line-height: 48px;
+    line-height: 20px;
+    vertical-align: text-top;
   }
 </style>

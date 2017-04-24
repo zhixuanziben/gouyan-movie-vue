@@ -1,27 +1,27 @@
 <template>
   <div>
-    <spinner v-if='guodu'></spinner>
-    <div v-if='!guodu'>
-      <div class="header-title">
-        <div class="msg-back" @click="backLastPage">
-          <div></div>
-        </div>
-        <div class="msg-title">{{movieMsg.title}}</div>
-        <div class="msg-back"></div>
-      </div>
+    <loading v-if='loading'></loading>
+    <div v-if='!loading'>
+      <v-header></v-header>
+      <banner-bg></banner-bg>
       <section class="msg-movie">
+        <div class="msg-movie-intro">
+          <h1 class="msg-movie-title">{{movieMsg.title}}</h1>
+          <div class="msg-movie-rating">
+              <star :score="movieMsg.rating.average"></star>
+              <strong>{{movieMsg.rating.average}}</strong>
+              <span class="msg-movie-count">{{movieMsg.collect_count}}人评分</span>
+          </div>
+          <p>{{movieMsg.genres.join('/ ')}}</p>
+          <p class="msg-star" v-for="item of movieMsg.directors">/ {{item.name}}(导演)</p>
+          <p v-for="item of movieMsg.casts">{{item.name}} /</p>
+          <p>{{movieMsg.year}}年上映</p>
+          <p class="open-douban-app">
+            <a href="https://www.douban.com/doubanapp/app?model=B&amp;copy=1&amp;page=&amp;channel=m_ad_yingren&amp;direct_dl=1" rel="nofollow">用App查看影人资料</a>
+          </p>
+        </div>
         <div class="msg-img-wrap">
           <img :src="movieMsg.images.medium" :alt="movieMsg.alt">
-        </div>
-        <div class="">
-          <h3 class="msg-movie-title">{{movieMsg.title}}</h3>
-          <star :score="movieMsg.rating.average"></star>
-          <p class="msg-movie-count">{{movieMsg.rating.average}}({{movieMsg.collect_count}}人评分)</p>
-          <p>{{movieMsg.year}}年</p> 
-          <p>{{movieMsg.genres.join(', ')}}</p>
-          <p v-for="item in movieMsg.countries">{{item}}</p>
-          <p v-for="item in movieMsg.durations" v-if="item.indexOf('中国')>0">{{item}}</p>
-          <p v-for="item in movieMsg.pubdates" v-if="item.indexOf('中国')>0">{{item}}</p>
         </div>
       </section>
       <section class="msg-count">
@@ -29,57 +29,38 @@
         <div>{{movieMsg.reviews_count}}人看过</div>
       </section>
       <div class="msg-summary">
+        <p>{{movieMsg.title}}的剧情介绍</p>
         {{movieMsg.summary}}
       </div>
-      <section class="msg-scoll-hidden">
-        <section class="msg-star-wrap">
-          <h3>演职人员</h3>
-          <div class="msg-scoll">
-            <div class="msg-star" v-for="item of movieMsg.directors" @click="starMsg(item.id)">
-              <div v-if="item.avatars.small">
-                <img :src="item.avatars.small" :alt="item.alt">
-              </div>
-              <div class="msg-star-name">
-                {{item.name}}[导演]
-              </div>
-            </div><div v-for="item of movieMsg.casts" @click="starMsg(item.id)">
-              <div v-if="item.avatars.small">
-                <img :src="item.avatars.small" :alt="item.alt">
-              </div>
-              <div class="msg-star-name">
-                {{item.name}}
-              </div>
-            </div>
-          </div>
-        </section>
-      </section>
       <section class="msg-duanping">
-        <h3>热门短评</h3>
+        <h3>{{movieMsg.title}}的短评</h3>
         <div v-for="item in movieMsg.popular_comments">
-          <div class="msg-rating">
-            <star :score="item.rating.value*2"></star>
-            <span>{{item.created_at}}</span>
-          </div>
-          <p class="author-content">{{item.content}}</p>
-          <div class="author-img">
+          <div class="author-intro">
             <img :src="item.author.avatar" :alt="item.author.alt">
-            <span>{{item.author.name}}</span>
+          <div class="author-name">
+            <span class="comment-author-name">{{item.author.name}}</span>
+            <star :score="item.rating.value*2"></star>
           </div>
+            <span class="created-at">{{item.created_at}}</span>
         </div>
-        <p @click="smallComment(movieMsg.id)" class="msg-all-Comment">查看全部短论</p>
-        <p @click="comment(movieMsg.id)" class="msg-all-Comment">查看全部影评</p>
+          <p class="author-content">{{item.content}}</p>
+        </div>
+        <p @click="shortCommentary(movieMsg.id)" class="msg-all-Comment">查看全部短论</p>
+        <p @click="cinecism(movieMsg.id)" class="msg-all-Comment">查看全部影评</p>
       </section>
     </div>
   </div>
 </template>
 
 <script>
-import spinner from './spinner/spinner'
-import star from './star/star'
+import vHeader from '../components/header/header'
+import bannerBg from '../components/header/banner_bg'
+import loading from '../components/loading/loading'
+import star from '../components/star/star'
   export default {
     data () {
       return {
-        guodu: true,
+        loading: true,
         movieMsg: {
           'rating': {
             'max': '',
@@ -183,7 +164,10 @@ import star from './star/star'
       }
     },
     components: {
-      spinner, star
+      loading: loading,
+      star: star,
+      'v-header': vHeader,
+      'banner-bg': bannerBg
     },
     mounted: function () {
       this.$nextTick(function () {
@@ -192,7 +176,7 @@ import star from './star/star'
         this.$http.jsonp(id)
         .then(function (response) {
           _this.movieMsg = response.body
-          this.guodu = false
+          this.loading = false
           // console.log(JSON.stringify(response))
         })
         .catch(function (response) {
@@ -205,71 +189,64 @@ import star from './star/star'
         const path = '/starMsg/' + str
         this.$router.push({path: path})
       },
-      comment: function (str) {
-        const path = '/comment/' + str
+      cinecism: function (str) {
+        const path = '/cinecism/' + str
         this.$router.push({path: path})
       },
-      smallComment: function (str) {
-        const path = '/smallComment/' + str
+      shortCommentary: function (str) {
+        const path = '/shortCommentary/' + str
         this.$router.push({path: path})
-      },
-      backLastPage: function () {
-        window.history.go(-1)
       }
     }
   }
 </script>
 
 <style scoped>
-  .header-title {
-    display: flex;
-    height: 50px;
-    width: 100%;
-    background-color: #e54847;
-    padding: 6px;
-    box-sizing: border-box;
-  }
-  .msg-back {
-    width: 50px;
-    position: relative;
-    cursor: pointer;
-  }
-  .msg-back > div {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    height: 13px;
-    width: 13px;
-    border: 2px solid #fff;
-    border-width: 0 0 2px 2px;
-    transform: rotate(45deg);
-  }
-  .msg-title {
-    flex: 1;
-    color: #fff;
-    text-align: center;
-    line-height: 2;
-    font-size: 20px;
-    overflow: hidden;
-  }
-  .msg-img-wrap {
-    margin-right: 10px;
-  }
-  .msg-img-wrap img {
-    border: 1px solid white;
-  }
   .msg-movie {
     display: flex;
     padding: 15px;
     color: #6b6868;
-    background-color: #b4b1b1;
+  }
+  .msg-movie p {
+    color: #494949;
+    float: left;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .msg-movie-intro {
+    width: 100%;
+    margin-top: 5px;
+  }
+  .open-douban-app {
+    margin-top: 10px;
+    clear: both;
+  }
+  .open-douban-app a {
+    text-decoration: none;
+  }
+  .msg-movie-intro .open-douban-app a{
+    color: #42bd56;
+  }
+  .msg-img-wrap {
+    width: 100px;
+    height: 160px;
+  }
+  .msg-img-wrap img {
+    border: 1px solid white;
   }
   .msg-movie:last-child {
     padding-left: 10px;
   }
   .msg-movie-title {
-    font-size: 20px;
-    color: #343232;
+    font-size: 24px;
+    color: #000;
+  }
+  .msg-movie-rating {
+    display: flex;
+    font-size: 14px;
+  }
+  .msg-movie-rating span {
+    padding-left: 5px;
   }
   .msg-count {
     display: flex;
@@ -277,90 +254,99 @@ import star from './star/star'
     padding: 10px;
   }
   .msg-count div {
-    margin-right: 20px;
-    margin-left: 20px;
+    margin: 0 auto;
     font-size: 14px;
     line-height: 30px;
     text-align: center;
-    width: 100px;
-    height: 30px;
-    color: white;
-    border-radius: 5px;
-    background-color: #e54847;
+    width: 137px;
+    height: 32px;
+    color: #ffb712;
+    border-radius: 3px;
+    border: 1px solid #ffb712;
   }
   .msg-summary {
     padding: 10px;
-    font-size: 14px;
-    color: #555;
+    font-size: 15px;
+    color: #494949;
+    line-height: 22px;
+    word-wrap: break-word;
   }
-  .msg-star-wrap {
-    padding: 10px;
-  }
-  .msg-scoll {
-    white-space: nowrap;
-    overflow-x: scroll;
-    margin-top: 10px;
-  }
-  .msg-scoll-hidden {
-    overflow: hidden;
-    height: 165px;
-    margin: 0 auto;
-    overflow: hidden;
-  }
-  .msg-scoll > div {
-    display: inline-block;
-    margin-right: 5px;
-  }
-  .msg-star-name {
-    width: 70px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow:ellipsis;
+  .msg-summary p {
+    color: #aaa;
+    font-size: 15px;
+    margin: 0 0 15px;
   }
   .msg-duanping {
     padding: 10px;
+    font-size: 15px;
     box-sizing: border-box;
   }
-  .msg-star-wrap h3,
   .msg-duanping h3 {
-    color: #666;
+    color: #aaa;
     font-size: 15px;
-    font-weight: 700;
     margin-bottom: 5px;
   }
   .author-content {
     color: #333;
-    margin-bottom: 10px;
+    padding-left: 40px;
+    padding-right: 15px;
+    margin-bottom: 25px;
+  }
+  .author-intro {
+    position: relative;
     margin-top: 10px;
+    color: #999;
+    height: 55px;
   }
-  .author-img {
-    margin-bottom: 10px;
-    border-bottom: 1px solid #d6d3d3;
+  .author-name {
+    position: relative;
+    top: -35px;
+    left: 50px;
+    width: 300px;
+    color: #ccc;
+    font-size: 12px;
+    display: flex;
   }
-  .author-img:last-child {
+  .comment-author-name {
+    font-size: 15px;
+    display: inline-block;
+    vertical-align: text-top;
+    margin-top: -3px;
+    margin-right: 6px;
+    color: #494949;
+    font-weight: bold;
+  }
+  .created-at {
+    font-size: 12px;
+    display: inline-block;
+    position: relative;
+    top: -30px;
+    left: 50px;
+  }
+/*   .author-intro .author-name {
+  display: flex;
+} */
+  .author-intro .author-name span {
+    margin-right: 5px;
+  }
+  .author-intro:last-child {
     margin-bottom: 0;
   }
-  .author-img img {
+  .author-intro img {
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
   }
-  .author-img span {
+  .author-intro span {
     vertical-align: 80%;
-    margin-left: 5px;
     color: #999;
   }
   .msg-all-Comment {
-    color: #e54847;
+    color: #00b600;
     font-weight: lighter;
     text-align: center;
     font-size: 15px;
     height: 30px;
     line-height: 30px;
-    border-bottom: 1px solid #d6d3d3;
-  }
-  .msg-rating {
-    display: flex;
-  }
-  .msg-rating:last-child {
-    flex: 1;
   }
 </style>

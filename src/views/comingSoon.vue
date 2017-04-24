@@ -1,19 +1,18 @@
 <template>
   <div class="come-soon">
     <v-header></v-header>
-    <spinner v-if='guodu'></spinner>
-    <div v-if='!guodu' class="co-theaters-area">
+    <div class="v-nav-bar">
+      <router-link to="/inTheaters" class="v-nav">影院热映</router-link>
+      <router-link to="/comingSoon" class="v-nav">新片速递</router-link>
+    </div>
+    <loading v-if='loading'></loading>
+    <div v-if='!loading' class="co-theaters-area">
       <div class="co-movies-wrap" >
         <div class="co-movies-show" v-for="(item, index) in coming_soon_data_body_subjects" @click="showMoreMsg(item.id)">
           <div class="co-movies-show-child">
-            <div class="co-posters"><img :src="item.images.small" :alt="item.alt"></div>
+            <div class="co-posters"><img :src="item.images.medium" :alt="item.alt"></div>
             <div class="co-movieMsg">
               <h2>{{ item.title }}</h2>
-              <p>导演: {{ item.directors[0].name}}</p>
-              <p>
-                主演:{{ item.casts[0].name}}
-                <span v-if="item.casts[1]">, {{ item.casts[1].name }}</span>
-              </p>
               <p>类型: {{item.genres.join(', ')}}</p>
             </div>
           </div>
@@ -24,8 +23,8 @@
 </template>
 
 <script>
-import spinner from './spinner/spinner'
-import vHeader from './header/header'
+import loading from '../components/loading/loading'
+import vHeader from '../components/header/header'
 export default {
   name: 'coming_soon',
   data () {
@@ -33,17 +32,17 @@ export default {
       coming_soon_data: {},
       coming_soon_data_body: {},
       coming_soon_data_body_subjects: [],
-      guodu: true
+      loading: true
     }
   },
   components: {
-    spinner: spinner,
+    loading: loading,
     'v-header': vHeader
   },
   mounted: function () {
     this.$http.jsonp('https://api.douban.com/v2/movie/coming_soon')
         .then(function (response) {
-          this.guodu = false
+          this.loading = false
           this.coming_soon_data = response
           this.coming_soon_data_body = response.body
           this.coming_soon_data_body_subjects = response.body.subjects
@@ -67,34 +66,56 @@ export default {
     margin: 0;
     padding: 0;
   }
-  .co-movies-wrap {
+ .co-movies-wrap {
     text-decoration: none;
-    font-size: 0;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #fff;
   }
   .co-movies-show {
-    background-color: #f8f8f8;
+    width: 30%;
+    margin: 10px 3px 10px 7px;
+    box-sizing: border-box;
     cursor: pointer;
     font-size: 0;
-    padding: 10px 20px;
   }
   .co-movies-show-child {
+    -moz-box-shadow: 0px 5px 5px #888888;
+    box-shadow: 0px 5px 5px #888888;
+  }
+  .co-posters img{
+    width: 100%;
+    height: 160px;
+  }
+  .co-movieMsg p, h2 {
+    color: #000;
+    text-align: center;
+    max-width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    word-wrap: nowrap;
+    text-overflow: ellipsis;
+  }
+  h2 {
+    font-size: 15px;
+    padding-left: 5px;
+  }
+  .co-movieMsg p {
+    font-size: 13px;
+  }
+  .v-nav-bar {
     display: flex;
-    align-items: flex-end;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #d6d6d6;
+    flex-flow: row wrap;
+    justify-content: center;
+    background-color: #fff;
   }
-  .co-movieMsg {
+  .v-nav {
     flex: 1;
-    padding-left: 20px;
-    vertical-align: top;
-  }
-  .co-movieMsg h2 {
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 10px;
-  }
-  .co-movies-show p {
-    font-size: 14px;
-    color: #666;
+    text-align: center;
+    text-decoration: none;
+    height: 35px;
+    line-height: 35px;
+    font-size: 17px;
+    color: #000;
   }
 </style>
