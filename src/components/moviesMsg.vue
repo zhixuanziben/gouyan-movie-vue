@@ -170,7 +170,7 @@ import star from './star/star'
               value: ''
             },
             author: {
-              uid: '',
+              uid: '11',
               avatar: '',
               name: ''
             },

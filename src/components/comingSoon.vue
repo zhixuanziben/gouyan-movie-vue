@@ -8,7 +8,7 @@
           <div class="co-movies-show-child">
             <div class="co-posters"><img :src="item.images.small" :alt="item.alt"></div>
             <div class="co-movieMsg">
-              <h2>{{ item.title }}</h2>
+              <h2>{{ item.title }}1111</h2>
               <p>导演: {{ item.directors[0].name}}</p>
               <p>
                 主演:{{ item.casts[0].name}}
@@ -61,7 +61,8 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<!--~ Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
   body {
     margin: 0;
